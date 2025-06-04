@@ -4,6 +4,7 @@ import ics from 'ics';
 import 'dayjs/locale/zh-cn.js';
 import weekday from 'dayjs/plugin/weekday.js';
 import { getCnHolidayList } from './get-holiday.js';
+import path from 'path';
 
 dayjs.locale('zh-cn');
 dayjs.extend(weekday);
@@ -57,6 +58,7 @@ export const getCalendar = async (year) => {
     console.error(error);
   }
   if (value) {
-    fs.writeFileSync(`../${year}.ics`, value);
+    const filePath = path.join(process.cwd(), `./${year}.ics`);
+    fs.writeFileSync(filePath, value);
   }
 };

@@ -6,7 +6,7 @@ async function commit() {
   const year = dayjs().year();
   await getCalendar(year);
   execSync(`git add .`);
-  execSync(`git commit -m "update ${year} calendar"`);
+  execSync(`git commit -m "chore(release): update ${year} calendar"`);
   execSync(`git push`);
 }
 
