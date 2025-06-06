@@ -36,7 +36,7 @@ export const getCalendar = async (year) => {
       // 非周末，且节假日，计入当周
       // 非周末，且非节假日，计入当周
 
-      if (date.weekday() > 5 && holiday && holiday.isOffDay) {
+      if (date.weekday() > 4 && holiday && holiday.isOffDay) {
         continue;
       }
 
