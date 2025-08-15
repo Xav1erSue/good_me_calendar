@@ -21,6 +21,8 @@ export const getCalendar = async (year) => {
    */
   const events = [];
 
+  /* -------------------------------- 生成周六加班日历 -------------------------------- */
+
   // 遍历 12 个月
   for (let month = 0; month < 12; month++) {
     // 从每个月第一天开始，遍历每个月的天数
@@ -50,6 +52,23 @@ export const getCalendar = async (year) => {
 
       break;
     }
+  }
+
+  /* --------------------------------- 生成发薪日历 --------------------------------- */
+
+  // 遍历 12 个月
+  for (let month = 0; month < 12; month++) {
+    // 每月 15 号是默认发薪日
+    const defaultPayDay = dayjs().month(month).date(15);
+    const weekday = defaultPayDay.weekday();
+    // 如果 15 号是周末，发薪日是上一个工作日
+    const payday = weekday > 4 ? defaultPayDay.weekday(4) : defaultPayDay;
+
+    events.push({
+      title: '发薪日',
+      start: [year, month + 1, payday.date()],
+      status: 'CONFIRMED',
+    });
   }
 
   const { error, value } = ics.createEvents(events);
